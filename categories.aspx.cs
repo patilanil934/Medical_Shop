@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,9 +12,28 @@ namespace MedicalShop
 {
     public partial class categories : System.Web.UI.Page
     {
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            LoadCategories();
 
+        }
+
+        private void LoadCategories()
+        {
+           
+            {
+                string query = "SELECT catname,catdescription FROM categories";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    rptCategories.DataSource = dt;
+                    rptCategories.DataBind();
+                }
+            }
         }
     }
 }

@@ -39,6 +39,11 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label"><b>Phone Number</b></label>
+            <asp:TextBox ID="txtPhoneNumber" runat="server" CssClass="form-control" Placeholder="Enter Phone Number"></asp:TextBox>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label"><b>Password</b></label>
             <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" Placeholder="Enter Password"></asp:TextBox>
         </div>

@@ -37,6 +37,7 @@
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
+            padding-bottom:10px
         }
 
         .category-card:hover {
@@ -56,67 +57,25 @@
     </header>
 
     <section class="categories-section">
-        <div class="container">
-            <h2 class="text-center">Explore Our Categories</h2>
-            <div class="row mt-5">
-                <div class="col-md-4">
-                    <div class="category-card">
-                        <img src="https://via.placeholder.com/400" alt="Category 1">
-                        <div class="p-3">
-                            <h5>Prescription Medicines</h5>
-                            <p>Wide range of prescription medicines to cater to all your healthcare needs.</p>
+    <div class="container">
+        <h2 class="text-center">Explore Our Categories</h2>
+        <div class="row mt-5">
+            <asp:Repeater ID="rptCategories" runat="server">
+                <ItemTemplate>
+                    <div class="col-md-4">
+                        <div class="category-card">
+                            <div class="p-3">
+                                <h5><%# Eval("catname") %></h5>
+                                <p><%# Eval("catdescription") %></p>
+                            </div>
                         </div>
+                        <br />
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="category-card">
-                        <img src="https://via.placeholder.com/400" alt="Category 2">
-                        <div class="p-3">
-                            <h5>Health Supplements</h5>
-                            <p>Boost your well-being with our curated health supplements and vitamins.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="category-card">
-                        <img src="https://via.placeholder.com/400" alt="Category 3">
-                        <div class="p-3">
-                            <h5>Personal Care</h5>
-                            <p>Explore personal care products for daily hygiene and wellness.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-md-4">
-                    <div class="category-card">
-                        <img src="https://via.placeholder.com/400" alt="Category 4">
-                        <div class="p-3">
-                            <h5>Medical Equipment</h5>
-                            <p>High-quality medical devices and equipment for your healthcare needs.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="category-card">
-                        <img src="https://via.placeholder.com/400" alt="Category 5">
-                        <div class="p-3">
-                            <h5>Over-the-Counter Drugs</h5>
-                            <p>Find effective OTC medicines for common ailments and symptoms.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="category-card">
-                        <img src="https://via.placeholder.com/400" alt="Category 6">
-                        <div class="p-3">
-                            <h5>Baby Care</h5>
-                            <p>Essential products for your baby's health, safety, and comfort.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
-    </section>
+    </div>
+</section>
+
 
 </asp:Content>

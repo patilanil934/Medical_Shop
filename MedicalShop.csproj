@@ -68,11 +68,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="aboutus.aspx" />
+    <Content Include="Adminpanel\AddBrand.aspx" />
+    <Content Include="Adminpanel\Addcategory.aspx" />
+    <Content Include="Adminpanel\Addproduct.aspx" />
+    <Content Include="Adminpanel\Brandlist.aspx" />
+    <Content Include="Adminpanel\Categorylist.aspx" />
+    <Content Include="Adminpanel\Customerlist.aspx" />
+    <Content Include="Adminpanel\Dashboard.aspx" />
     <Content Include="cart.aspx" />
     <Content Include="categories.aspx" />
     <Content Include="index.aspx" />
     <Content Include="loginuser.aspx" />
+    <Content Include="Adminpanel\Orderlist.aspx" />
     <Content Include="ordermedicine.aspx" />
+    <Content Include="Adminpanel\Productlist.aspx" />
     <Content Include="registeruser.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -83,6 +92,62 @@
     </Compile>
     <Compile Include="aboutus.aspx.designer.cs">
       <DependentUpon>aboutus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\AddBrand.aspx.cs">
+      <DependentUpon>AddBrand.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\AddBrand.aspx.designer.cs">
+      <DependentUpon>AddBrand.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Addcategory.aspx.cs">
+      <DependentUpon>Addcategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Addcategory.aspx.designer.cs">
+      <DependentUpon>Addcategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Addproduct.aspx.cs">
+      <DependentUpon>Addproduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Addproduct.aspx.designer.cs">
+      <DependentUpon>Addproduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Adminmasterpage.Master.cs">
+      <DependentUpon>Adminmasterpage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Adminmasterpage.Master.designer.cs">
+      <DependentUpon>Adminmasterpage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Brandlist.aspx.cs">
+      <DependentUpon>Brandlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Brandlist.aspx.designer.cs">
+      <DependentUpon>Brandlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Categorylist.aspx.cs">
+      <DependentUpon>Categorylist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Categorylist.aspx.designer.cs">
+      <DependentUpon>Categorylist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Customerlist.aspx.cs">
+      <DependentUpon>Customerlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Customerlist.aspx.designer.cs">
+      <DependentUpon>Customerlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="cart.aspx.cs">
       <DependentUpon>cart.aspx</DependentUpon>
@@ -119,12 +184,26 @@
     <Compile Include="Mainpage.Master.designer.cs">
       <DependentUpon>Mainpage.Master</DependentUpon>
     </Compile>
+    <Compile Include="Adminpanel\Orderlist.aspx.cs">
+      <DependentUpon>Orderlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Orderlist.aspx.designer.cs">
+      <DependentUpon>Orderlist.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ordermedicine.aspx.cs">
       <DependentUpon>ordermedicine.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ordermedicine.aspx.designer.cs">
       <DependentUpon>ordermedicine.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Productlist.aspx.cs">
+      <DependentUpon>Productlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Productlist.aspx.designer.cs">
+      <DependentUpon>Productlist.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="registeruser.aspx.cs">
@@ -137,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Mainpage.Master" />
+    <Content Include="Adminpanel\Adminmasterpage.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -147,6 +227,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\" />
+    <Folder Include="uploads\products\" />
+    <Folder Include="uploads\resizeimages\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
