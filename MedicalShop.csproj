@@ -75,6 +75,7 @@
     <Content Include="Adminpanel\Categorylist.aspx" />
     <Content Include="Adminpanel\Customerlist.aspx" />
     <Content Include="Adminpanel\Dashboard.aspx" />
+    <Content Include="Adminpanel\Editproduct.aspx" />
     <Content Include="cart.aspx" />
     <Content Include="categories.aspx" />
     <Content Include="index.aspx" />
@@ -148,6 +149,13 @@
     </Compile>
     <Compile Include="Adminpanel\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Editproduct.aspx.cs">
+      <DependentUpon>Editproduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Editproduct.aspx.designer.cs">
+      <DependentUpon>Editproduct.aspx</DependentUpon>
     </Compile>
     <Compile Include="cart.aspx.cs">
       <DependentUpon>cart.aspx</DependentUpon>

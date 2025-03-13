@@ -51,43 +51,40 @@
     <section class="order-section">
         <div class="container">
             <h2 class="text-center">Place Your Order</h2>
+            
             <form class="mt-4">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Your Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                            <label for="txtName" class="form-label">Your Name</label>
+                            <asp:TextBox ID="txtName" runat="server" CssClass="form-control" placeholder="Enter your name" required></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                            <label for="txtPhone" class="form-label">Phone Number</label>
+                            <asp:TextBox ID="txtPhone" runat="server" CssClass="form-control" placeholder="Enter your phone number" required></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <label for="doctor" class="form-label">Doctor's Name</label>
-                            <input type="text" class="form-control" id="doctor" placeholder="Enter the doctor's name" required>
+                            <label for="txtDoctor" class="form-label">Doctor's Name</label>
+                            <asp:TextBox ID="txtDoctor" runat="server" CssClass="form-control" placeholder="Enter the doctor's name" required></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <label for="prescription" class="form-label">Upload Prescription</label>
-                            <asp:FileUpload ID="prescription" CssClass="form-control custom-file-input" runat="server" required />
+                            <label for="fuPrescription" class="form-label">Upload Prescription</label>
+                            <asp:FileUpload ID="fuPrescription" CssClass="form-control custom-file-input" runat="server" required />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="quantity" class="form-label">Medicine Quantity</label>
-                            <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" required>
+                            <label for="txtDescription" class="form-label">Description</label>
+                            <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Enter details about the medicine"></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" rows="3" placeholder="Enter details about the medicine" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <asp:TextBox ID="address" CssClass="form-control" runat="server" TextMode="MultiLine" Rows="3" placeholder="Enter your delivery address" required></asp:TextBox>
+                            <label for="txtAddress" class="form-label">Address</label>
+                            <asp:TextBox ID="txtAddress" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Enter your delivery address" required></asp:TextBox>
                         </div>
                     </div>
                 </div>
                 <div class="text-center">
-                    <asp:Button ID="submitOrder" CssClass="btn btn-primary" runat="server" Text="Submit Order"  />
+                    <asp:Button ID="btnSubmitOrder" CssClass="btn btn-primary" runat="server" Text="Submit Order" OnClick="btnSubmitOrder_Click" />
                 </div>
             </form>
         </div>

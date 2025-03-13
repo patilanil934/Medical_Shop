@@ -70,17 +70,21 @@ namespace MedicalShop
                 if (!Directory.Exists(uploadPath)) Directory.CreateDirectory(uploadPath);
                 if (!Directory.Exists(resizedPath)) Directory.CreateDirectory(resizedPath);
 
-                string fileName = Path.GetFileName(fuImage.FileName);
-                string savePath = uploadPath + fileName;
-                string resizeSavePath = resizedPath + "Resized_" + fileName;
+                // Generate a short, unique file name
+                string fileExtension = Path.GetExtension(fuImage.FileName);
+                string uniqueFileName = "P" + DateTime.Now.Ticks.ToString().Substring(8) + fileExtension;
+
+                string savePath = Path.Combine(uploadPath, uniqueFileName);
+                string resizeSavePath = Path.Combine(resizedPath, "Resized_" + uniqueFileName);
 
                 fuImage.SaveAs(savePath);
-                originalImagePath = "~/uploads/products/" + fileName;
+                originalImagePath = "~/uploads/products/" + uniqueFileName;
 
                 // Resize and save the image
                 ResizeImage(fuImage.PostedFile.InputStream, resizeSavePath, 800, 600);
-                resizedImagePath = "~/uploads/resizeimages/Resized_" + fileName;
+                resizedImagePath = "~/uploads/resizeimages/Resized_" + uniqueFileName;
             }
+
 
             con.Open();
             SqlCommand cmd = new SqlCommand("INSERT INTO products (productname, brand_id, category_id, description, price, stock, expiry_date, image, resized_image) " +
@@ -97,7 +101,16 @@ namespace MedicalShop
             cmd.ExecuteNonQuery();
             con.Close();
 
-            lblMessage.Text = "Product added successfully!";
+            txtProductName.Text = "";
+            txtDescription.Text = "";
+            txtPrice.Text = "";
+            txtStock.Text = "";
+            txtExpiryDate.Text = "";
+
+
+            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+    "Swal.fire({title: 'Success!', text: 'Product added successfully!', icon: 'success'});", true);
+
         }
 
         private void ResizeImage(Stream stream, string outputPath, int width, int height)

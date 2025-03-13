@@ -107,6 +107,27 @@
         </button>
     </div>
 </div>
+    <!-- About Our Medical Shop Section -->
+<section class="about-medical-shop py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2>About Our Medical Shop</h2>
+                <ul class="list-unstyled">
+                    <li>✔ Providing high-quality and affordable medicines.</li>
+                    <li>✔ 24/7 availability for your health needs.</li>
+                    <li>✔ Certified and trusted pharmaceutical products.</li>
+                    <li>✔ Easy online ordering with fast delivery.</li>
+                    <li>✔ Customer satisfaction is our priority.</li>
+                </ul>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="images/shivdatta.jpg" style="width:300px;height:200px" class="img-fluid rounded" alt="About Our Medical Shop">
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="stats">
     <div class="container">
         <h2>Our Achievements</h2>
