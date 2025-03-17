@@ -17,57 +17,75 @@ namespace MedicalShop
 
         }
 
+
+
         protected void btnSubmitOrder_Click(object sender, EventArgs e)
         {
-            string name = txtName.Text.Trim();
-            string phone = txtPhone.Text.Trim();
-            string doctorName = txtDoctor.Text.Trim();
-            string description = txtDescription.Text.Trim();
-            string address = txtAddress.Text.Trim();
-            string prescriptionImage = "";
-
-            if (fuPrescription.HasFile)
+            if (Session["UserID"] != null)
             {
-                string uploadFolder = Server.MapPath("~/uploads/prescriptions/");
-                if (!Directory.Exists(uploadFolder))
+                string name = txtName.Text.Trim();
+                string phone = txtPhone.Text.Trim();
+                string doctorName = txtDoctor.Text.Trim();
+                string description = txtDescription.Text.Trim();
+                string address = txtAddress.Text.Trim();
+                string prescriptionImage = "";
+
+                if (fuPrescription.HasFile)
                 {
-                    Directory.CreateDirectory(uploadFolder);
+                    string uploadFolder = Server.MapPath("~/uploads/prescriptions/");
+                    if (!Directory.Exists(uploadFolder))
+                    {
+                        Directory.CreateDirectory(uploadFolder);
+                    }
+
+                    string fileName = DateTime.Now.Ticks + Path.GetExtension(fuPrescription.FileName);
+                    prescriptionImage = "uploads/prescriptions/" + fileName;
+                    fuPrescription.SaveAs(Path.Combine(uploadFolder, fileName));
+                }
+                else
+                {
+                    ShowSweetAlert("Error", "Please upload a prescription image.", "error");
+                    return;
                 }
 
-                string fileName = DateTime.Now.Ticks + Path.GetExtension(fuPrescription.FileName);
-                prescriptionImage = "uploads/prescriptions/" + fileName;
-                fuPrescription.SaveAs(Path.Combine(uploadFolder, fileName));
+                string connString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    string query = "INSERT INTO prescription_order (name, phone, doctor_name, prescription_image, description, address) " +
+                                   "VALUES (@name, @phone, @doctorName, @prescriptionImage, @description, @address)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@name", name);
+                        cmd.Parameters.AddWithValue("@phone", phone);
+                        cmd.Parameters.AddWithValue("@doctorName", doctorName);
+                        cmd.Parameters.AddWithValue("@prescriptionImage", prescriptionImage);
+                        cmd.Parameters.AddWithValue("@description", description);
+                        cmd.Parameters.AddWithValue("@address", address);
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                }
+
+                ShowSweetAlert("Success", "Order placed successfully!", "success");
+                ClearFields();
             }
             else
             {
-                ShowSweetAlert("Error", "Please upload a prescription image.", "error");
-                return;
+                string script = "Swal.fire({ " +
+                                "title: 'Login Required', " +
+                                "text: 'You must be logged in to place an order.', " +
+                                "icon: 'warning', " +
+                                "confirmButtonText: 'Login Now' " +
+                                "}).then((result) => { if (result.isConfirmed) { window.location = 'loginuser.aspx'; }});";
+
+                ClientScript.RegisterStartupScript(this.GetType(), "LoginAlert", script, true);
             }
 
-            string connString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connString))
-            {
-                string query = "INSERT INTO prescription_order (name, phone, doctor_name, prescription_image, description, address) " +
-                               "VALUES (@name, @phone, @doctorName, @prescriptionImage, @description, @address)";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@name", name);
-                    cmd.Parameters.AddWithValue("@phone", phone);
-                    cmd.Parameters.AddWithValue("@doctorName", doctorName);
-                    cmd.Parameters.AddWithValue("@prescriptionImage", prescriptionImage);
-                    cmd.Parameters.AddWithValue("@description", description);
-                    cmd.Parameters.AddWithValue("@address", address);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
-                }
-            }
-
-            ShowSweetAlert("Success", "Order placed successfully!", "success");
-            ClearFields();
         }
+
 
         private void ShowSweetAlert(string title, string message, string icon)
         {

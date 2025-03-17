@@ -56,7 +56,7 @@
                     <a class="nav-link" href="cart.aspx">Cart</a>
                 </li>
 
-                <% if (Session["UserID"] == null) { %>
+              <% if (Session["UserID"] == null) { %>
                     <!-- Show Login Button if User is NOT Logged In -->
                     <li class="nav-item">
                         <a class="nav-link" href="loginuser.aspx">Login</a>
@@ -65,14 +65,20 @@
                     <!-- Dropdown Menu for Logged-in User -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle"></i> Account
+                            <i class="bi bi-person-circle"></i> <%= Session["UserName"] %>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="profile.aspx">Profile</a></li>
-                            <li><a class="dropdown-item" href="logout.aspx">Logout</a></li>
+                            <li>
+                               
+                                    <asp:Button ID="btnLogout" runat="server" CssClass="dropdown-item" Text="Logout" OnClick="btnLogout_Click" />
+                               
+                            </li>
                         </ul>
                     </li>
                 <% } %>
+
+
             </ul>
         </div>
     </div>

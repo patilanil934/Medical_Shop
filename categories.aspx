@@ -56,19 +56,21 @@
         <h1>Categories</h1>
     </header>
 
-    <section class="categories-section">
+   <section class="categories-section">
     <div class="container">
         <h2 class="text-center">Explore Our Categories</h2>
         <div class="row mt-5">
             <asp:Repeater ID="rptCategories" runat="server">
                 <ItemTemplate>
                     <div class="col-md-4">
-                        <div class="category-card">
-                            <div class="p-3">
-                                <h5><%# Eval("catname") %></h5>
-                                <p><%# Eval("catdescription") %></p>
+                        <a href='categoryproducts.aspx?category_id=<%# Eval("id") %>' class="text-decoration-none">
+                            <div class="category-card">
+                                <div class="p-3">
+                                    <h5><%# Eval("catname") %></h5>
+                                    <p><%# Eval("catdescription") %></p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                         <br />
                     </div>
                 </ItemTemplate>
@@ -76,6 +78,7 @@
         </div>
     </div>
 </section>
+
 
 
 </asp:Content>

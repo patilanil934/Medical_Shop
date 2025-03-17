@@ -24,13 +24,8 @@
         <asp:ScriptManager runat="server"></asp:ScriptManager>
 
         <div class="mb-3">
-            <label class="form-label"><b>First Name</b></label>
+            <label class="form-label"><b>Enter Your Name</b></label>
             <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control" Placeholder="Enter First Name"></asp:TextBox>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label"><b>Last Name</b></label>
-            <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control" Placeholder="Enter Last Name"></asp:TextBox>
         </div>
 
         <div class="mb-3">
@@ -69,8 +64,8 @@
             <asp:DropDownList ID="ddlSecurityQuestion" runat="server" CssClass="form-control">
                 <asp:ListItem Text="Select a security question" Value=""></asp:ListItem>
                 <asp:ListItem Text="What is your pet's name?" Value="1"></asp:ListItem>
-                <asp:ListItem Text="What is your mother's maiden name?" Value="2"></asp:ListItem>
-                <asp:ListItem Text="What was the name of your first school?" Value="3"></asp:ListItem>
+                <asp:ListItem Text="What is your mother name?" Value="2"></asp:ListItem>
+                <asp:ListItem Text="What is your favorite game?" Value="3"></asp:ListItem>
             </asp:DropDownList>
         </div>
 
@@ -79,6 +74,6 @@
             <asp:TextBox ID="txtSecurityAnswer" runat="server" CssClass="form-control" Placeholder="Enter Answer"></asp:TextBox>
         </div>
 
-        <asp:Button ID="btnRegister" runat="server" CssClass="btn btn-primary" Text="Join Me"  />
+        <asp:Button ID="btnRegister" runat="server" CssClass="btn btn-primary" Text="Join Now" Onclick="btnRegister_Click" />
     </div>
 </asp:Content>

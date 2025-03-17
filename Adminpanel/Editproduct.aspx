@@ -52,14 +52,7 @@
                             <label for="txtExpiryDate" class="form-label">Expiry Date</label>
                             <asp:TextBox ID="txtExpiryDate" runat="server" CssClass="form-control" TextMode="Date" required></asp:TextBox>
                         </div>
-                        <div class="mb-3">
-                            <label for="imgCurrent" class="form-label">Current Image</label>
-                            <asp:Image ID="imgCurrent" runat="server" CssClass="img-thumbnail" Height="100" Width="100" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="fuImage" class="form-label">Upload New Image</label>
-                            <asp:FileUpload ID="fuImage" runat="server" CssClass="form-control" accept="image/*" />
-                        </div>
+                       
                         <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary w-100" Text="Update Product" OnClick="btnUpdate_Click" />
                     </asp:Panel>
                 </div>

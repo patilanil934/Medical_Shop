@@ -11,7 +11,27 @@ namespace MedicalShop
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                // Check if logout is requested via URL query
+                if (Request.QueryString["logout"] == "true")
+                {
+                    LogoutUser();
+                }
+            }
         }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            LogoutUser();
+        }
+
+        private void LogoutUser()
+        {
+            Session.Clear();  // Clears all session variables
+            Session.Abandon();  // Destroys the session
+            Response.Redirect("loginuser.aspx", true); // Redirect to login page
+        }
+
     }
 }

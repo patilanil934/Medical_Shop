@@ -68,19 +68,8 @@ namespace MedicalShop.Adminpanel
                             ddlCategory.SelectedValue = reader["category_id"].ToString();
                         }
 
-                        // Fix image display
-                        string imageName = reader["image"] != DBNull.Value ? reader["image"].ToString() : "";
-                        if (!string.IsNullOrEmpty(imageName))
-                        {
-                            imgCurrent.ImageUrl = ResolveUrl("~/uploads/products/" + imageName);
-                            imgCurrent.Visible = true;
-                        }
-                        else
-                        {
-                            imgCurrent.Visible = false;
-                        }
+                        
                     }
-
                     else
                     {
                         Response.Redirect("ProductList.aspx");
@@ -89,6 +78,10 @@ namespace MedicalShop.Adminpanel
                 }
             }
         }
+
+
+
+
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -101,45 +94,13 @@ namespace MedicalShop.Adminpanel
             int stock = Convert.ToInt32(txtStock.Text.Trim());
             DateTime? expiryDate = string.IsNullOrEmpty(txtExpiryDate.Text) ? (DateTime?)null : Convert.ToDateTime(txtExpiryDate.Text.Trim());
 
-            string newImageName = "";
-            string oldImagePath = "";
-
-            // Prevent null reference error
-            if (!string.IsNullOrEmpty(imgCurrent.ImageUrl))
-            {
-                oldImagePath = Server.MapPath(imgCurrent.ImageUrl);
-            }
-
-            // Image Upload Handling
-            if (fuImage.HasFile)
-            {
-                string ext = Path.GetExtension(fuImage.FileName).ToLower();
-                if (ext == ".jpg" || ext == ".jpeg" || ext == ".png")
-                {
-                    newImageName = Guid.NewGuid().ToString() + ext;
-                    string newImagePath = Server.MapPath("~/uploads/products/") + newImageName;
-                    fuImage.SaveAs(newImagePath);
-
-                    // Delete old image if new image is uploaded
-                    if (!string.IsNullOrEmpty(oldImagePath) && File.Exists(oldImagePath))
-                    {
-                        File.Delete(oldImagePath);
-                    }
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert",
-                        "Swal.fire('Error!', 'Only JPG, JPEG, and PNG files are allowed.', 'error');", true);
-                    return;
-                }
-            }
-
             string connStr = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
+
+            // 🔹 Update product details in database (without updating the image)
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 string query = "UPDATE products SET productname=@name, brand_id=@brand, category_id=@category, description=@description, " +
-                               "price=@price, stock=@stock, expiry_date=@expiry_date" +
-                               (newImageName != "" ? ", image=@image" : "") + " WHERE id=@id";
+                               "price=@price, stock=@stock, expiry_date=@expiry_date WHERE id=@id";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -161,19 +122,18 @@ namespace MedicalShop.Adminpanel
 
                     cmd.Parameters.AddWithValue("@id", productId);
 
-                    if (newImageName != "")
-                    {
-                        cmd.Parameters.AddWithValue("@image", newImageName);
-                    }
-
                     conn.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
 
+            // 🔹 Show Success Message & Redirect
             ScriptManager.RegisterStartupScript(this, this.GetType(), "alert",
                 "Swal.fire('Updated!', 'Product has been updated successfully.', 'success').then(() => { window.location='ProductList.aspx'; });", true);
         }
+
+
+
 
         private void LoadBrands()
         {

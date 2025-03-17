@@ -78,6 +78,7 @@
     <Content Include="Adminpanel\Editproduct.aspx" />
     <Content Include="cart.aspx" />
     <Content Include="categories.aspx" />
+    <Content Include="categoryproducts.aspx" />
     <Content Include="index.aspx" />
     <Content Include="loginuser.aspx" />
     <Content Include="Adminpanel\Orderlist.aspx" />
@@ -170,6 +171,13 @@
     </Compile>
     <Compile Include="categories.aspx.designer.cs">
       <DependentUpon>categories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="categoryproducts.aspx.cs">
+      <DependentUpon>categoryproducts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="categoryproducts.aspx.designer.cs">
+      <DependentUpon>categoryproducts.aspx</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

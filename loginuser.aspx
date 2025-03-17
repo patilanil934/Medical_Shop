@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <asp:Button ID="btnLogin"  runat="server" CssClass="btn btn-login" Text="Login" />
+                    <asp:Button ID="btnLogin"  runat="server" CssClass="btn btn-login" Text="Login" Onclick="btnLogin_Click"/>
                 </div>
 
                 <div class="text-center">
