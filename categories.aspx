@@ -37,7 +37,8 @@
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
-            padding-bottom:10px
+            padding-bottom:10px;
+           
         }
 
         .category-card:hover {
@@ -48,6 +49,9 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
+        }
+        .p-3 h5{
+            color:black;
         }
     </style>
 </asp:Content>

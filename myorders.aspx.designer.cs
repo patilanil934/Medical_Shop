@@ -11,34 +11,25 @@ namespace MedicalShop
 {
 
 
-    public partial class cart
+    public partial class myorders
     {
 
         /// <summary>
-        /// rptCart control.
+        /// rptOrders control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptCart;
+        protected global::System.Web.UI.WebControls.Repeater rptOrders;
 
         /// <summary>
-        /// lblTotalAmount control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalAmount;
-
-        /// <summary>
-        /// btnCheckout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCheckout;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
     }
 }

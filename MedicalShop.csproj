@@ -82,6 +82,7 @@
     <Content Include="index.aspx" />
     <Content Include="loginuser.aspx" />
     <Content Include="Adminpanel\Orderlist.aspx" />
+    <Content Include="myorders.aspx" />
     <Content Include="ordermedicine.aspx" />
     <Content Include="Adminpanel\Productlist.aspx" />
     <Content Include="registeruser.aspx" />
@@ -206,6 +207,13 @@
     </Compile>
     <Compile Include="Adminpanel\Orderlist.aspx.designer.cs">
       <DependentUpon>Orderlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="myorders.aspx.cs">
+      <DependentUpon>myorders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="myorders.aspx.designer.cs">
+      <DependentUpon>myorders.aspx</DependentUpon>
     </Compile>
     <Compile Include="ordermedicine.aspx.cs">
       <DependentUpon>ordermedicine.aspx</DependentUpon>
