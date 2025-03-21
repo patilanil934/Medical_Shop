@@ -69,7 +69,7 @@
                                         <i class="bi bi-person-circle"></i> <%= Session["UserName"] %>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item" href="profile.aspx">Profile</a></li>
+                                        <li><a class="dropdown-item" href="userprofile.aspx">Profile</a></li>
                                         <li><a class="dropdown-item" href="myorders.aspx">My Orders</a></li>
                                         <li>
                                             <asp:Button ID="btnLogout" runat="server" CssClass="dropdown-item" Text="Logout" OnClick="btnLogout_Click" />
