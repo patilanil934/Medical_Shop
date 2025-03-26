@@ -19,32 +19,32 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>John Doe</td>
-                            <td>john@example.com</td>
-                            <td>123-456-7890</td>
-                            <td>123 Main St, City</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Update</button>
-                                <button class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jane Smith</td>
-                            <td>jane@example.com</td>
-                            <td>987-654-3210</td>
-                            <td>456 Elm St, City</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Update</button>
-                                <button class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
+                   <tbody>
+    <asp:Repeater ID="rptCustomers" runat="server" OnItemCommand="rptCustomers_ItemCommand">
+        <ItemTemplate>
+            <tr>
+                <td><%# Container.ItemIndex + 1 %></td>
+                <td><%# Eval("name") %></td>
+                <td><%# Eval("email") %></td>
+                <td><%# Eval("phone") %></td>
+                <td><%# Eval("address") %></td>
+                <td>
+                    <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-danger btn-sm"
+                        CommandName="DeleteCustomer" CommandArgument='<%# Eval("id") %>' 
+                        OnClientClick="return confirmDelete();" />
+                </td>
+            </tr>
+        </ItemTemplate>
+    </asp:Repeater>
+</tbody>
                 </table>
             </div>
         </div>
+    <script>
+        function confirmDelete() {
+    return confirm('Are you sure you want to delete this customer?');
+}
+
+    </script>
 
 </asp:Content>

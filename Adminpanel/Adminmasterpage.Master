@@ -100,11 +100,26 @@
             margin-bottom: 10px;
         }
     </style>
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          var sidebar = document.getElementById("sidebar");
+          var content = document.getElementById("content");
+          var toggleButton = document.querySelector(".toggle-sidebar");
+
+          if (toggleButton) {
+              toggleButton.addEventListener("click", function (event) {
+                  event.preventDefault(); // Prevents unwanted behavior
+                  sidebar.classList.toggle("hidden");
+                  content.classList.toggle("full-width");
+              });
+          }
+      });
+  </script>
 </head>
 <body>
     <form id="form1" runat="server">
         
-            <div class="sidebar" id="sidebar">
+    <div class="sidebar" id="sidebar">
         <h4 class="text-center">Medical Shop</h4>
         <hr>
         <a href="Dashboard.aspx">Dashboard</a>
@@ -115,17 +130,18 @@
         <a href="Customerlist.aspx">Customer List</a>
         <hr>
         <a href="#">Daily Report</a>
+        <a href="#">Monthly Report</a>
         <a href="#">Contact Info</a>
         
     </div>
 
     <div class="content" id="content">
         <div class="dashboard-header">
-            <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+            <button class="toggle-sidebar">☰</button>
             
             <div class="admin-section dropdown">
                 <button class="dropdown-toggle" type="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="admin-avatar.png" alt="Avatar">
+                    
                     <span>Admin</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">

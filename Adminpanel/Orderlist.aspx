@@ -21,75 +21,52 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="content2">
-            <div class="dashboard-header">
-                <h2>Order List</h2>
-            </div>
-            <div class="container mt-4">
-                <table class="table table-bordered table-striped">
-                    <thead class="table-dark">
+<div class="content2">
+    <div class="dashboard-header">
+        <h2>Order List</h2>
+    </div>
+    <div class="container mt-4">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Date Ordered</th>
+                    <th>Code</th>
+                    <th>Customer</th>
+                    <th>Total Amount</th>
+                    <th>Current Status</th> <!-- New Column for fetched Status -->
+                    <th>Select Status</th>  
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <asp:Repeater ID="rptOrders" runat="server" OnItemCommand="rptOrders_ItemCommand">
+                    <ItemTemplate>
                         <tr>
-                            <th>#</th>
-                            <th>Date Ordered</th>
-                            <th>Code</th>
-                            <th>Customer</th>
-                            <th>Total Amount</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>2025-01-18 12:43</td>
-                            <td>2025011800001</td>
-                            <td>Anil Jotiram Patil</td>
-                            <td>$40.00</td>
-                            <td><span class="status-paid">Paid</span></td>
+                            <td><%# Container.ItemIndex + 1 %></td>
+                            <td><%# Eval("order_date", "{0:yyyy-MM-dd HH:mm}") %></td>
+                            <td><%# "ORD" + Eval("id") %></td>
+                            <td><%# Eval("name") %></td>
+                            <td>$<%# Eval("total_amount") %></td>
+                            <td><strong><%# Eval("status") %></strong></td> <!-- New Column for Current Status -->
                             <td>
-                                <button class="btn btn-primary btn-sm">Update</button>
-                                <button class="btn btn-danger btn-sm">Delete</button>
+                                <asp:DropDownList ID="ddlStatus" runat="server">
+                                    <asp:ListItem Text="Out for Delivery" Value="Out for Delivery"></asp:ListItem>
+                                    <asp:ListItem Text="Delivered" Value="Delivered"></asp:ListItem>
+                                </asp:DropDownList>
+                            </td>
+                            <td>
+                                <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandName="UpdateStatus" 
+                                    CommandArgument='<%# Eval("id") %>' CssClass="btn btn-primary btn-sm" />
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2022-05-26 10:56</td>
-                            <td>2022052600002</td>
-                            <td>Samantha Jane C Miller</td>
-                            <td>$105.00</td>
-                            <td><span class="status-paid">Paid</span></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Update</button>
-                                <button class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>2022-05-26 09:22</td>
-                            <td>2022052600001</td>
-                            <td>Mark D Cooper</td>
-                            <td>$50.00</td>
-                            <td><span class="status-pending">Pending</span></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Update</button>
-                                <button class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>2022-05-25 16:36</td>
-                            <td>20212165468</td>
-                            <td>Mark D Cooper</td>
-                            <td>$203.00</td>
-                            <td><span class="status-paid">Paid</span></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Update</button>
-                                <button class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 
 </asp:Content>

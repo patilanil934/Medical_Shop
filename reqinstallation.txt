@@ -1,0 +1,32 @@
+﻿ Install Missing Libraries
+Some namespaces are missing. You need to install the required NuGet packages.
+
+📌 Install iTextSharp for PDF generation
+iTextSharp is required for working with PDFs.
+
+Command (Run in NuGet Package Manager Console):
+
+mathematica
+Copy
+Edit
+Install-Package iTextSharp
+Manually via Visual Studio:
+
+Go to Tools > NuGet Package Manager > Manage NuGet Packages for Solution.
+
+Search for iTextSharp and install it.
+
+📌 Install EPPlus for Excel Export
+EPPlus is required for generating Excel files.
+
+Command (Run in NuGet Package Manager Console):
+
+mathematica
+Copy
+Edit
+Install-Package EPPlus
+Manually via Visual Studio:
+
+Go to Tools > NuGet Package Manager > Manage NuGet Packages for Solution.
+
+Search for EPPlus and install it.
