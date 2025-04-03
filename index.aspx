@@ -59,6 +59,9 @@
             height: 500px;
             object-fit: cover;
         }
+       .black-text {
+    color: black !important;
+}
 
 </style>
 
@@ -76,23 +79,23 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="images/carsoul11.jpg" class="d-block w-100" alt="Slide 1">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>High Quality Medicines</h5>
-                    <p>Ensuring the best products for your health.</p>
-                </div>
+               <div class="carousel-caption d-none d-md-block">
+                <h5 class="black-text">High Quality Medicines</h5>
+                <p class="black-text">Ensuring the best products for your health.</p>
+            </div>
             </div>
             <div class="carousel-item">
                 <img src="images/carsoul2.jpg" class="d-block w-100" alt="Slide 2">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Fast Delivery</h5>
-                    <p>Get your orders delivered quickly to your doorstep.</p>
+                    <h5 class="black-text">Fast Delivery</h5>
+                    <p class="black-text">Get your orders delivered quickly to your doorstep.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="images/carsoul3.webp" class="d-block w-100" alt="Slide 3">
+                <img src="images/carsoul4.jpg" class="d-block w-100" alt="Slide 3">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Trusted by Thousands</h5>
-                    <p>Join our growing list of satisfied customers.</p>
+                    <h5 class="black-text">Trusted by Thousands</h5>
+                    <p class="black-text">Join our growing list of satisfied customers.</p>
                 </div>
             </div>
         </div>
