@@ -103,7 +103,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="aboutus.aspx" />
+    <Content Include="Adminpanel\EditContactinfo.aspx" />
+    <Content Include="Adminpanel\Viewprescriptions.aspx" />
+    <Content Include="Adminpanel\Viewmessage.aspx" />
+    <Content Include="contactus.aspx" />
     <Content Include="Adminpanel\AddBrand.aspx" />
     <Content Include="Adminpanel\Addcategory.aspx" />
     <Content Include="Adminpanel\Addproduct.aspx" />
@@ -113,6 +116,7 @@
     <Content Include="Adminpanel\Dailyreport.aspx" />
     <Content Include="Adminpanel\Dashboard.aspx" />
     <Content Include="Adminpanel\Editproduct.aspx" />
+    <Content Include="Adminpanel\MonthlyReport.aspx" />
     <Content Include="cart.aspx" />
     <Content Include="categories.aspx" />
     <Content Include="categoryproducts.aspx" />
@@ -128,12 +132,33 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="aboutus.aspx.cs">
-      <DependentUpon>aboutus.aspx</DependentUpon>
+    <Compile Include="Adminpanel\EditContactinfo.aspx.cs">
+      <DependentUpon>EditContactinfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="aboutus.aspx.designer.cs">
-      <DependentUpon>aboutus.aspx</DependentUpon>
+    <Compile Include="Adminpanel\EditContactinfo.aspx.designer.cs">
+      <DependentUpon>EditContactinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Viewprescriptions.aspx.cs">
+      <DependentUpon>Viewprescriptions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Viewprescriptions.aspx.designer.cs">
+      <DependentUpon>Viewprescriptions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\Viewmessage.aspx.cs">
+      <DependentUpon>Viewmessage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\Viewmessage.aspx.designer.cs">
+      <DependentUpon>Viewmessage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="contactus.aspx.cs">
+      <DependentUpon>contactus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="contactus.aspx.designer.cs">
+      <DependentUpon>contactus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Adminpanel\AddBrand.aspx.cs">
       <DependentUpon>AddBrand.aspx</DependentUpon>
@@ -204,6 +229,13 @@
     </Compile>
     <Compile Include="Adminpanel\Editproduct.aspx.designer.cs">
       <DependentUpon>Editproduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adminpanel\MonthlyReport.aspx.cs">
+      <DependentUpon>MonthlyReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adminpanel\MonthlyReport.aspx.designer.cs">
+      <DependentUpon>MonthlyReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="cart.aspx.cs">
       <DependentUpon>cart.aspx</DependentUpon>

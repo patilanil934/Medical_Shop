@@ -14,10 +14,8 @@ namespace MedicalShop
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+        
         }
-
-
 
         protected void btnSubmitOrder_Click(object sender, EventArgs e)
         {
@@ -51,8 +49,10 @@ namespace MedicalShop
                 string connString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    string query = "INSERT INTO prescription_order (name, phone, doctor_name, prescription_image, description, address) " +
-                                   "VALUES (@name, @phone, @doctorName, @prescriptionImage, @description, @address)";
+                    string query = @"INSERT INTO prescription_order 
+                                      (name, phone, doctor_name, prescription_image, description, address, status, admin_note, total_amount) 
+                                      VALUES 
+                                      (@name, @phone, @doctorName, @prescriptionImage, @description, @address, @status, @adminNote, @totalAmount)";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -62,6 +62,11 @@ namespace MedicalShop
                         cmd.Parameters.AddWithValue("@prescriptionImage", prescriptionImage);
                         cmd.Parameters.AddWithValue("@description", description);
                         cmd.Parameters.AddWithValue("@address", address);
+
+                        // Default Values for New Columns
+                        cmd.Parameters.AddWithValue("@status", "Pending");
+                        cmd.Parameters.AddWithValue("@adminNote", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@totalAmount", DBNull.Value);
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -83,9 +88,7 @@ namespace MedicalShop
 
                 ClientScript.RegisterStartupScript(this.GetType(), "LoginAlert", script, true);
             }
-
         }
-
 
         private void ShowSweetAlert(string title, string message, string icon)
         {

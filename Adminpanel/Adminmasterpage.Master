@@ -129,9 +129,12 @@
         <a href="Orderlist.aspx">Orders</a>
         <a href="Customerlist.aspx">Customer List</a>
         <hr>
-        <a href="#">Daily Report</a>
-        <a href="#">Monthly Report</a>
-        <a href="#">Contact Info</a>
+        <a href="Viewprescriptions.aspx">Prescription Orders</a>
+        <a href="Viewmessage.aspx">View Messages</a>
+        <hr>
+        <a href="Dailyreport.aspx">Daily Report</a>
+        <a href="MonthlyReport.aspx">Monthly Report</a>
+        <a href="EditContactinfo.aspx">Contact Info</a>
         
     </div>
 
