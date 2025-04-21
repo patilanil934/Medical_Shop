@@ -73,6 +73,20 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label class="form-label">Do you need this medicine repeatedly?</label><br />
+                            <asp:RadioButtonList ID="rblReminder" runat="server" RepeatDirection="Horizontal" CssClass="form-check">
+                                <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                <asp:ListItem Text="No" Value="No" Selected="True"></asp:ListItem>
+                            </asp:RadioButtonList>
+                        </div>
+
+                        <div class="mb-3" id="reminderDaysDiv" style="display:none;">
+                            <label for="txtReminderDays" class="form-label">Enter reminder days (e.g. 5, 10)</label>
+                            <asp:TextBox ID="txtReminderDays" runat="server" CssClass="form-control" placeholder="Reminder days"></asp:TextBox>
+                        </div>
+
                         <div class="mb-3">
                             <label for="txtDescription" class="form-label">Description</label>
                             <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Enter details about the medicine"></asp:TextBox>
@@ -89,4 +103,16 @@
             </form>
         </div>
     </section>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const radioList = document.querySelectorAll("input[name*='rblReminder']");
+        const reminderDiv = document.getElementById("reminderDaysDiv");
+
+        radioList.forEach(radio => {
+            radio.addEventListener("change", () => {
+                reminderDiv.style.display = (radio.value === "Yes" && radio.checked) ? "block" : "none";
+            });
+        });
+    });
+    </script>
 </asp:Content>

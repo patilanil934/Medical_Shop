@@ -14,8 +14,59 @@ namespace MedicalShop
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-        
+            if (!IsPostBack)
+            {
+                // Check if it's a reorder request
+                if (Request.QueryString["reorderid"] != null)
+                {
+                    int reorderId;
+                    if (int.TryParse(Request.QueryString["reorderid"], out reorderId))
+                    {
+                        PrefillReorderForm(reorderId);
+                    }
+                }
+            }
         }
+
+        private void PrefillReorderForm(int id)
+        {
+            string connString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                string query = "SELECT * FROM prescription_order WHERE id = @id";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            txtName.Text = reader["name"].ToString();
+                            txtPhone.Text = reader["phone"].ToString();
+                            txtDoctor.Text = reader["doctor_name"].ToString();
+                            txtDescription.Text = reader["description"].ToString();
+                            txtAddress.Text = reader["address"].ToString();
+
+                            // Refill reminder if available
+                            if (reader["reminder_days"] != DBNull.Value)
+                            {
+                                rblReminder.SelectedValue = "Yes";
+                                txtReminderDays.Text = reader["reminder_days"].ToString();
+                                txtReminderDays.Visible = true;
+                            }
+                            else
+                            {
+                                rblReminder.SelectedValue = "No";
+                                txtReminderDays.Visible = false;
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+        }
+
 
         protected void btnSubmitOrder_Click(object sender, EventArgs e)
         {
@@ -27,14 +78,21 @@ namespace MedicalShop
                 string description = txtDescription.Text.Trim();
                 string address = txtAddress.Text.Trim();
                 string prescriptionImage = "";
+                int? reminderDays = null;
+
+                if (rblReminder.SelectedValue == "Yes")
+                {
+                    if (int.TryParse(txtReminderDays.Text.Trim(), out int days))
+                    {
+                        reminderDays = days;
+                    }
+                }
 
                 if (fuPrescription.HasFile)
                 {
                     string uploadFolder = Server.MapPath("~/uploads/prescriptions/");
                     if (!Directory.Exists(uploadFolder))
-                    {
                         Directory.CreateDirectory(uploadFolder);
-                    }
 
                     string fileName = DateTime.Now.Ticks + Path.GetExtension(fuPrescription.FileName);
                     prescriptionImage = "uploads/prescriptions/" + fileName;
@@ -50,9 +108,9 @@ namespace MedicalShop
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
                     string query = @"INSERT INTO prescription_order 
-                                      (name, phone, doctor_name, prescription_image, description, address, status, admin_note, total_amount) 
-                                      VALUES 
-                                      (@name, @phone, @doctorName, @prescriptionImage, @description, @address, @status, @adminNote, @totalAmount)";
+        (name, phone, doctor_name, prescription_image, description, address, status, admin_note, total_amount, reminder_days, created_at, user_id) 
+        VALUES 
+        (@name, @phone, @doctorName, @prescriptionImage, @description, @address, @status, @adminNote, @totalAmount, @reminderDays, GETDATE(), @userId)";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -62,17 +120,18 @@ namespace MedicalShop
                         cmd.Parameters.AddWithValue("@prescriptionImage", prescriptionImage);
                         cmd.Parameters.AddWithValue("@description", description);
                         cmd.Parameters.AddWithValue("@address", address);
-
-                        // Default Values for New Columns
                         cmd.Parameters.AddWithValue("@status", "Pending");
                         cmd.Parameters.AddWithValue("@adminNote", DBNull.Value);
                         cmd.Parameters.AddWithValue("@totalAmount", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@reminderDays", (object)reminderDays ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@userId", Session["UserID"]); // 👈 add this line to store user ID
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         conn.Close();
                     }
                 }
+
 
                 ShowSweetAlert("Success", "Order placed successfully!", "success");
                 ClearFields();
@@ -89,6 +148,7 @@ namespace MedicalShop
                 ClientScript.RegisterStartupScript(this.GetType(), "LoginAlert", script, true);
             }
         }
+
 
         private void ShowSweetAlert(string title, string message, string icon)
         {

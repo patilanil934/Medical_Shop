@@ -73,6 +73,35 @@
                                <li class="nav-item">
                                  <a class="nav-link" href="cart.aspx">Cart</a>
                              </li>
+
+                                <li class="nav-item dropdown">
+                                <a class="nav-link position-relative" href="#" id="reminderDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-bell-fill"></i>
+                                    <asp:Literal ID="ltlReminderCount" runat="server"></asp:Literal>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="reminderDropdown">
+                                    <asp:Repeater ID="rptReminders" runat="server">
+                                                                                <ItemTemplate>
+                                            <div class="p-2 border-bottom">
+                                                <strong><%# Eval("name") %></strong><br />
+                                                <small>Dr. <%# Eval("doctor_name") %></small><br />
+                                                <small><%# Eval("description") %></small><br />
+                                                <div class="mt-1">
+                                                    <asp:Button ID="btnReorder" runat="server" CommandArgument='<%# Eval("id") %>'
+                                                        CssClass="btn btn-success btn-sm" Text="Reorder" OnClick="btnReorder_Click" />
+                                                    <asp:Button ID="btnNotRequired" runat="server" CommandArgument='<%# Eval("id") %>'
+                                                        CssClass="btn btn-danger btn-sm" Text="Not Required" OnClick="btnNotRequired_Click" />
+                                                </div>
+                                            </div>
+                                        </ItemTemplate>
+                                        <FooterTemplate>
+                                            <li class="dropdown-divider"></li>
+                                            <li class="text-center text-muted small p-2">End of Reminders</li>
+                                        </FooterTemplate>
+                                    </asp:Repeater>
+                                </ul>
+                            </li>
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-person-circle"></i> <%= Session["UserName"] %>

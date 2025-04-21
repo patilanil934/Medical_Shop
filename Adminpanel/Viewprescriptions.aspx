@@ -51,7 +51,7 @@
                             <asp:ListItem Text="Pending" Value="Pending" />
                             <asp:ListItem Text="Approved" Value="Approved" />
                             <asp:ListItem Text="Rejected" Value="Rejected" />
-                            asp:ListItem Text="Approved" Value="Deliverd" />
+                            <asp:ListItem Text="Deliverd" Value="Deliverd" />
                         </asp:DropDownList>
                     </div>
                     <div class="form-group">
