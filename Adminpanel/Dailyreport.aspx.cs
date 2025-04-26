@@ -79,6 +79,11 @@ namespace MedicalShop.Adminpanel
                 lblTotalSales.Text = totalSales.ToString("0.00"); // Show decimal instead of ₹
                 lblTotalCustomers.Text = totalCustomers.ToString();
                 lblBestSellingProduct.Text = bestSellingProduct;
+
+                // Update hidden fields for Chart.js
+                hfTotalOrders.Value = totalOrders.ToString();
+                hfTotalSales.Value = totalSales.ToString("0.00");
+                hfTotalCustomers.Value = totalCustomers.ToString();
             }
         }
 

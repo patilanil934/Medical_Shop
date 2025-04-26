@@ -4,6 +4,29 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    <h3>Prescription Orders</h3>
 
+    <div class="row mb-3">
+    <div class="col-md-3">
+        <asp:TextBox ID="txtSearchName" runat="server" CssClass="form-control" placeholder="Search by Name"></asp:TextBox>
+    </div>
+    <div class="col-md-3">
+        <asp:TextBox ID="txtSearchPhone" runat="server" CssClass="form-control" placeholder="Search by Phone"></asp:TextBox>
+    </div>
+    <div class="col-md-3">
+        <asp:DropDownList ID="ddlStatusFilter" runat="server" CssClass="form-control">
+            <asp:ListItem Text="All Status" Value=""></asp:ListItem>
+            <asp:ListItem Text="Pending" Value="Pending"></asp:ListItem>
+            <asp:ListItem Text="Approved" Value="Approved"></asp:ListItem>
+            <asp:ListItem Text="Rejected" Value="Rejected"></asp:ListItem>
+            <asp:ListItem Text="Deliverd" Value="Deliverd"></asp:ListItem>
+        </asp:DropDownList>
+    </div>
+    <div class="col-md-3">
+        <asp:Button ID="btnFilter" runat="server" Text="Filter" CssClass="btn btn-primary" OnClick="btnFilter_Click" />
+        <asp:Button ID="btnClear" runat="server" Text="Clear" CssClass="btn btn-secondary ml-2" OnClick="btnClear_Click" />
+    </div>
+</div>
+
+
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered"
         OnRowCommand="GridView1_RowCommand">
         <Columns>

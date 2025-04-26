@@ -22,12 +22,56 @@ namespace MedicalShop.Adminpanel
             }
         }
 
-        private void BindGrid()
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+            BindGrid(txtSearchName.Text.Trim(), txtSearchPhone.Text.Trim(), ddlStatusFilter.SelectedValue);
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            txtSearchName.Text = "";
+            txtSearchPhone.Text = "";
+            ddlStatusFilter.SelectedIndex = 0;
+            BindGrid();
+        }
+
+        private void BindGrid(string name = "", string phone = "", string status = "")
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string query = "SELECT * FROM prescription_order ORDER BY created_at DESC";
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                string query = "SELECT * FROM prescription_order WHERE 1=1";
+
+                if (!string.IsNullOrEmpty(name))
+                {
+                    query += " AND name LIKE @name";
+                }
+                if (!string.IsNullOrEmpty(phone))
+                {
+                    query += " AND phone LIKE @phone";
+                }
+                if (!string.IsNullOrEmpty(status))
+                {
+                    query += " AND status = @status";
+                }
+
+                query += " ORDER BY created_at DESC";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                if (!string.IsNullOrEmpty(name))
+                {
+                    cmd.Parameters.AddWithValue("@name", "%" + name + "%");
+                }
+                if (!string.IsNullOrEmpty(phone))
+                {
+                    cmd.Parameters.AddWithValue("@phone", "%" + phone + "%");
+                }
+                if (!string.IsNullOrEmpty(status))
+                {
+                    cmd.Parameters.AddWithValue("@status", status);
+                }
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 GridView1.DataSource = dt;
