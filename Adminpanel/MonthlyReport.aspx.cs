@@ -121,6 +121,8 @@ namespace MedicalShop.Adminpanel
         {
             LoadReportData();
 
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             using (ExcelPackage excel = new ExcelPackage())
             {
                 var ws = excel.Workbook.Worksheets.Add("Monthly Report");

@@ -34,11 +34,11 @@ namespace MedicalShop
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 string query = @"
-        SELECT id, name, doctor_name, description 
-        FROM prescription_order 
-        WHERE reminder_days IS NOT NULL 
-          AND DATEADD(DAY, reminder_days, created_at) <= GETDATE()
-          AND user_id = @userId"; // ← THIS LINE was missing the ending quote
+                    SELECT id, name, doctor_name, description 
+                    FROM prescription_order 
+                    WHERE reminder_days IS NOT NULL 
+                      AND DATEADD(DAY, reminder_days, created_at) <= GETDATE()
+                      AND user_id = @userId"; // ← THIS LINE was missing the ending quote
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userId", Session["UserID"]);

@@ -25,7 +25,33 @@
     <div class="dashboard-header">
         <h2>Order List</h2>
     </div>
+
     <div class="container mt-4">
+        <!-- Filters outside the table -->
+        <asp:Panel ID="pnlFilters" runat="server" CssClass="row mb-3">
+            <div class="col-md-3">
+                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" Placeholder="Search by code, name, status"></asp:TextBox>
+            </div>
+            <div class="col-md-2">
+                <asp:DropDownList ID="ddlFilterStatus" runat="server" CssClass="form-control">
+                    <asp:ListItem Text="All Statuses" Value=""></asp:ListItem>
+                    <asp:ListItem Text="Pending" Value="Pending"></asp:ListItem>
+                    <asp:ListItem Text="Out for Delivery" Value="Out for Delivery"></asp:ListItem>
+                    <asp:ListItem Text="Delivered" Value="Delivered"></asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            <div class="col-md-2">
+                <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+            </div>
+            <div class="col-md-2">
+                <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+            </div>
+            <div class="col-md-2">
+                <asp:Button ID="btnFilter" runat="server" CssClass="btn btn-success w-100" Text="Filter" OnClick="btnFilter_Click" />
+            </div>
+        </asp:Panel>
+
+        <!-- Table starts after the filters -->
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
@@ -34,7 +60,7 @@
                     <th>Code</th>
                     <th>Customer</th>
                     <th>Total Amount</th>
-                    <th>Current Status</th> <!-- New Column for fetched Status -->
+                    <th>Current Status</th>
                     <th>Select Status</th>  
                     <th>Action</th>
                 </tr>
@@ -48,7 +74,7 @@
                             <td><%# "ORD" + Eval("id") %></td>
                             <td><%# Eval("name") %></td>
                             <td>$<%# Eval("total_amount") %></td>
-                            <td><strong><%# Eval("status") %></strong></td> <!-- New Column for Current Status -->
+                            <td><strong><%# Eval("status") %></strong></td>
                             <td>
                                 <asp:DropDownList ID="ddlStatus" runat="server">
                                     <asp:ListItem Text="Out for Delivery" Value="Out for Delivery"></asp:ListItem>
@@ -66,7 +92,6 @@
         </table>
     </div>
 </div>
-
 
 
 </asp:Content>

@@ -85,6 +85,8 @@ namespace MedicalShop.Adminpanel
 
         protected void ExportToPDF(object sender, EventArgs e)
         {
+            LoadReportData(); // <-- Reload data
+
             Document doc = new Document();
             MemoryStream ms = new MemoryStream();
             PdfWriter.GetInstance(doc, ms);
@@ -107,7 +109,9 @@ namespace MedicalShop.Adminpanel
 
         protected void ExportToExcel(object sender, EventArgs e)
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Set license context
+            LoadReportData(); // <-- Reload data
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             using (ExcelPackage excel = new ExcelPackage())
             {

@@ -115,5 +115,50 @@ namespace MedicalShop
             }
         }
 
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+            LoadFilteredOrders();
+        }
+
+        private void LoadFilteredOrders()
+        {
+            string search = txtSearch.Text.Trim();
+            string status = ddlFilterStatus.SelectedValue;
+            string startDate = txtStartDate.Text;
+            string endDate = txtEndDate.Text;
+
+            string connString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                string query = @"SELECT o.id, o.order_date, o.status, o.total_amount, u.name 
+                         FROM orders o 
+                         JOIN users u ON o.user_id = u.id
+                         WHERE
+                            (@Search = '' OR o.status LIKE '%' + @Search + '%' OR u.name LIKE '%' + @Search + '%' OR ('ORD' + CAST(o.id AS VARCHAR)) LIKE '%' + @Search + '%') AND
+                            (@Status = '' OR o.status = @Status) AND
+                            (@StartDate = '' OR CAST(o.order_date AS DATE) >= @StartDate) AND
+                            (@EndDate = '' OR CAST(o.order_date AS DATE) <= @EndDate)
+                         ORDER BY o.order_date DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Search", search);
+                    cmd.Parameters.AddWithValue("@Status", status);
+                    cmd.Parameters.AddWithValue("@StartDate", startDate);
+                    cmd.Parameters.AddWithValue("@EndDate", endDate);
+
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+                        rptOrders.DataSource = dt;
+                        rptOrders.DataBind();
+                    }
+                }
+            }
+        }
+
+
     }
 }
