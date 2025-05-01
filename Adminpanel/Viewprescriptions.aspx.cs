@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net.Mail;
+using System.Net;
 
 namespace MedicalShop.Adminpanel
 {
@@ -113,20 +115,93 @@ namespace MedicalShop.Adminpanel
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            string userEmail = ""; // Declare the variable to hold the user's email
+            string name = "", phone = "", doctor = "", description = "", address = "", status = "", adminNote = "", totalAmount = "0.00";
+
+            // Fetch the email and other order details
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string query = "UPDATE prescription_order SET status = @status, total_amount = @amount, admin_note = @note WHERE id = @id";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@status", ddlStatus.SelectedValue);
-                cmd.Parameters.AddWithValue("@amount", string.IsNullOrEmpty(txtAmount.Text) ? (object)DBNull.Value : Convert.ToDecimal(txtAmount.Text));
-                cmd.Parameters.AddWithValue("@note", txtNote.Text.Trim());
-                cmd.Parameters.AddWithValue("@id", hfOrderId.Value);
+                // Step 1: Get existing user/order info, including email
+                string fetchQuery = @"
+            SELECT u.email, p.name, p.phone, p.doctor_name, p.description, p.address, p.status, p.total_amount, p.admin_note
+            FROM prescription_order p
+            INNER JOIN users u ON p.user_id = u.id
+            WHERE p.id = @id";
+
+                SqlCommand fetchCmd = new SqlCommand(fetchQuery, conn);
+                fetchCmd.Parameters.AddWithValue("@id", hfOrderId.Value);
                 conn.Open();
-                cmd.ExecuteNonQuery();
+                SqlDataReader reader = fetchCmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    userEmail = reader["email"].ToString();
+                    name = reader["name"].ToString();
+                    phone = reader["phone"].ToString();
+                    doctor = reader["doctor_name"].ToString();
+                    description = reader["description"].ToString();
+                    address = reader["address"].ToString();
+                    status = ddlStatus.SelectedValue;
+                    totalAmount = string.IsNullOrEmpty(txtAmount.Text) ? "0.00" : txtAmount.Text;
+                    adminNote = txtNote.Text.Trim();
+                }
+                reader.Close();
+
+                // Step 2: Update the order
+                string updateQuery = "UPDATE prescription_order SET status = @status, total_amount = @amount, admin_note = @note WHERE id = @id";
+                SqlCommand updateCmd = new SqlCommand(updateQuery, conn);
+                updateCmd.Parameters.AddWithValue("@status", ddlStatus.SelectedValue);
+                updateCmd.Parameters.AddWithValue("@amount", string.IsNullOrEmpty(txtAmount.Text) ? (object)DBNull.Value : Convert.ToDecimal(txtAmount.Text));
+                updateCmd.Parameters.AddWithValue("@note", txtNote.Text.Trim());
+                updateCmd.Parameters.AddWithValue("@id", hfOrderId.Value);
+                updateCmd.ExecuteNonQuery();
             }
 
+            // Step 3: Send the email to the user
+            try
+            {
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+                string smtpUser = "patilanil9398@gmail.com"; // Replace with your email
+                string smtpPass = "vqzk roio gema iatd";    // Replace with your app password
+
+                // Create the email message
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(smtpUser, "Medical Shop");
+                mail.To.Add(userEmail);
+                mail.Subject = "Your Prescription Order Update - Medical Shop";
+                mail.IsBodyHtml = true;
+
+                // Construct the email body
+                mail.Body = $@"
+            <h3>Dear {name},</h3>
+            <p>Your prescription order has been updated. Please find the details below:</p>
+            <table border='1' cellpadding='8' cellspacing='0'>
+                <tr><td><strong>Name:</strong></td><td>{name}</td></tr>
+                <tr><td><strong>Phone:</strong></td><td>{phone}</td></tr>
+                <tr><td><strong>Doctor:</strong></td><td>{doctor}</td></tr>
+                <tr><td><strong>Description:</strong></td><td>{description}</td></tr>
+                <tr><td><strong>Address:</strong></td><td>{address}</td></tr>
+                <tr><td><strong>Status:</strong></td><td>{status}</td></tr>
+                <tr><td><strong>Total Amount:</strong></td><td>₹{totalAmount}</td></tr>
+                <tr><td><strong>Admin Note:</strong></td><td>{adminNote}</td></tr>
+            </table>
+            <br/><p>Thank you for choosing Medical Shop.</p>";
+
+                // Send the email using SMTP client
+                SmtpClient smtp = new SmtpClient(smtpServer, smtpPort);
+                smtp.Credentials = new NetworkCredential(smtpUser, smtpPass);
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+
+            // Close the modal and refresh the grid
             ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModal", "$('#prescriptionModal').modal('hide');", true);
             BindGrid();
         }
+
     }
 }

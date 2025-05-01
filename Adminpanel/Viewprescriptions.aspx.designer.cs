@@ -78,6 +78,15 @@ namespace MedicalShop.Adminpanel
         protected global::System.Web.UI.WebControls.HiddenField hfOrderId;
 
         /// <summary>
+        /// imgPrescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgPrescription;
+
+        /// <summary>
         /// lblName control.
         /// </summary>
         /// <remarks>
@@ -121,15 +130,6 @@ namespace MedicalShop.Adminpanel
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAddress;
-
-        /// <summary>
-        /// imgPrescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgPrescription;
 
         /// <summary>
         /// ddlStatus control.

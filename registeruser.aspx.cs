@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net;
+using System.Net.Mail;
 
 namespace MedicalShop
 {
@@ -58,8 +60,9 @@ namespace MedicalShop
 
                     if (result > 0)
                     {
+                        SendRegistrationEmail(name, email, password);
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "alert",
-                            "Swal.fire('Success!', 'Registration successful! Redirecting to login...', 'success').then(() => { window.location='loginuser.aspx'; });",
+                            "Swal.fire('Success!', 'Registration successful! Get Details On Registered Email', 'success').then(() => { window.location='loginuser.aspx'; });",
                             true);
                     }
                     else
@@ -68,6 +71,38 @@ namespace MedicalShop
                             "Swal.fire('Error!', 'Something went wrong. Please try again.', 'error');", true);
                     }
                 }
+            }
+        }
+
+        private void SendRegistrationEmail(string name, string email, string password)
+        {
+            try
+            {
+                // SMTP Configuration
+                string smtpServer = "smtp.gmail.com"; // Example for Gmail
+                int smtpPort = 587;
+                string smtpUser = "patilanil9398@gmail.com"; // your email here
+                string smtpPass = "vqzk roio gema iatd";    // app password if using Gmail
+
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(smtpUser, "Medical Shop");
+                mail.To.Add(email);
+                mail.Subject = "Registration Successful - Medical Shop";
+                mail.IsBodyHtml = true;
+                mail.Body = $"<h3>Welcome, {name}!</h3><p>Your registration was successful.</p>" +
+                            $"<p><strong>Email:</strong> {email}</p>" +
+                            $"<p><strong>Password:</strong> {password}</p>" +
+                            "<br/><p>Thank you for registering with us.</p>";
+
+                SmtpClient smtp = new SmtpClient(smtpServer, smtpPort);
+                smtp.Credentials = new NetworkCredential(smtpUser, smtpPass);
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                // Optionally log the error
+                Console.WriteLine("Email sending failed: " + ex.Message);
             }
         }
     }

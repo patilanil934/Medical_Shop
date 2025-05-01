@@ -59,20 +59,20 @@
             </div>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label"><b>Security Question</b></label>
-            <asp:DropDownList ID="ddlSecurityQuestion" runat="server" CssClass="form-control">
-                <asp:ListItem Text="Select a security question" Value=""></asp:ListItem>
-                <asp:ListItem Text="What is your pet's name?" Value="1"></asp:ListItem>
-                <asp:ListItem Text="What is your mother name?" Value="2"></asp:ListItem>
-                <asp:ListItem Text="What is your favorite game?" Value="3"></asp:ListItem>
-            </asp:DropDownList>
-        </div>
+       <div class="mb-3">
+    <label for="ddlSecurityQuestion" class="form-label fw-bold">Security Question</label>
+    <asp:DropDownList ID="ddlSecurityQuestion" runat="server" CssClass="form-control">
+        <asp:ListItem Text="Select a question" Value="" />
+        <asp:ListItem Text="What is your pet's name?" Value="1" />
+        <asp:ListItem Text="What is your mother's maiden name?" Value="2" />
+        <asp:ListItem Text="What is your favorite color?" Value="3" />
+    </asp:DropDownList>
+</div>
 
-        <div class="mb-3">
-            <label class="form-label"><b>Security Answer</b></label>
-            <asp:TextBox ID="txtSecurityAnswer" runat="server" CssClass="form-control" Placeholder="Enter Answer"></asp:TextBox>
-        </div>
+<div class="mb-3">
+    <label for="txtSecurityAnswer" class="form-label fw-bold">Security Answer</label>
+    <asp:TextBox ID="txtSecurityAnswer" runat="server" CssClass="form-control" placeholder="Enter your answer"></asp:TextBox>
+</div>
 
         <asp:Button ID="btnRegister" runat="server" CssClass="btn btn-primary" Text="Join Now" Onclick="btnRegister_Click" />
     </div>

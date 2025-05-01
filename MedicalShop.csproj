@@ -120,12 +120,14 @@
     <Content Include="cart.aspx" />
     <Content Include="categories.aspx" />
     <Content Include="categoryproducts.aspx" />
+    <Content Include="forgotpassword.aspx" />
     <Content Include="index.aspx" />
     <Content Include="loginuser.aspx" />
     <Content Include="Adminpanel\Orderlist.aspx" />
     <Content Include="myorders.aspx" />
     <Content Include="ordermedicine.aspx" />
     <Content Include="Adminpanel\Productlist.aspx" />
+    <Content Include="prescriptionorders.aspx" />
     <Content Include="registeruser.aspx" />
     <Content Include="reqinstallation.txt" />
     <Content Include="userprofile.aspx" />
@@ -258,6 +260,13 @@
     <Compile Include="categoryproducts.aspx.designer.cs">
       <DependentUpon>categoryproducts.aspx</DependentUpon>
     </Compile>
+    <Compile Include="forgotpassword.aspx.cs">
+      <DependentUpon>forgotpassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="forgotpassword.aspx.designer.cs">
+      <DependentUpon>forgotpassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -306,6 +315,13 @@
     </Compile>
     <Compile Include="Adminpanel\Productlist.aspx.designer.cs">
       <DependentUpon>Productlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="prescriptionorders.aspx.cs">
+      <DependentUpon>prescriptionorders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="prescriptionorders.aspx.designer.cs">
+      <DependentUpon>prescriptionorders.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="registeruser.aspx.cs">

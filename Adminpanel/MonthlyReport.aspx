@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Adminpanel/Adminmasterpage.Master" AutoEventWireup="true" CodeBehind="MonthlyReport.aspx.cs" Inherits="MedicalShop.Adminpanel.MonthlyReport" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div class="container mt-4">
@@ -38,13 +39,53 @@
                 </div>
             </div>
 
-            <div class="row mt-4">
-                <div class="col-md-6 text-start">
+                <asp:HiddenField ID="hfTotalOrders" runat="server" />
+                <asp:HiddenField ID="hfTotalSales" runat="server" />
+                <asp:HiddenField ID="hfTotalCustomers" runat="server" />
+
+                 <div class="row mt-4 justify-content-center">
+            <div class="col-md-6">
+                <h5 class="text-center mb-3">Report Summary</h5>
+                <canvas id="monthlyChart"  style="max-width: 250px; max-height: 250px;" class="mx-auto"></canvas>
+            </div>
+        </div>
+
+            <div class="row mt-4 text-center">
+                <div class="col-md-6 text-center">
                     <asp:Button ID="btnExportPdf" runat="server" Text="Download PDF" CssClass="btn btn-danger" OnClick="btnExportPdf_Click" />
                 </div>
-                <div class="col-md-6 text-end">
+                <div class="col-md-6 text-center">
                     <asp:Button ID="btnExportExcel" runat="server" Text="Download Excel" CssClass="btn btn-success" OnClick="btnExportExcel_Click" />
                 </div>
             </div>
-        </div>
+        
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const orders = parseInt(document.getElementById('<%= hfTotalOrders.ClientID %>').value) || 0;
+        const sales = parseFloat(document.getElementById('<%= hfTotalSales.ClientID %>').value) || 0;
+        const customers = parseInt(document.getElementById('<%= hfTotalCustomers.ClientID %>').value) || 0;
+
+        const ctx = document.getElementById('monthlyChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Total Orders', 'Total Sales', 'Total Customers'],
+                datasets: [{
+                    label: 'Monthly Summary',
+                    data: [orders, sales, customers],
+                    backgroundColor: ['#007bff', '#28a745', '#17a2b8'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    });
+    </script>
 </asp:Content>

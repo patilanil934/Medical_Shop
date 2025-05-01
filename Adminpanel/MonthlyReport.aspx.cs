@@ -89,6 +89,11 @@ namespace MedicalShop.Adminpanel
                 lblTotalSales.Text = totalSales.ToString("C");
                 lblTotalCustomers.Text = totalCustomers.ToString();
                 lblBestSellingProduct.Text = bestSellingProduct;
+
+                hfTotalOrders.Value = totalOrders.ToString();
+                hfTotalSales.Value = totalSales.ToString();
+                hfTotalCustomers.Value = totalCustomers.ToString();
+                hfTotalCustomers.Value = totalCustomers.ToString();
             }
         }
 

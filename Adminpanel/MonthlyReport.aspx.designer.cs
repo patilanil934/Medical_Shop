@@ -78,6 +78,33 @@ namespace MedicalShop.Adminpanel
         protected global::System.Web.UI.WebControls.Label lblBestSellingProduct;
 
         /// <summary>
+        /// hfTotalOrders control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfTotalOrders;
+
+        /// <summary>
+        /// hfTotalSales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfTotalSales;
+
+        /// <summary>
+        /// hfTotalCustomers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfTotalCustomers;
+
+        /// <summary>
         /// btnExportPdf control.
         /// </summary>
         /// <remarks>
