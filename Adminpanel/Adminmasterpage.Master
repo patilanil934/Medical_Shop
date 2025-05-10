@@ -126,10 +126,16 @@
         <a href="Categorylist.aspx">Category List</a>
         <a href="Brandlist.aspx">Brand List</a>
         <a href="Productlist.aspx">Product List</a>
-        <a href="Orderlist.aspx">Orders</a>
+        <a href="Orderlist.aspx">
+    Orders
+    <asp:Literal ID="litPendingOrders" runat="server" />
+</a>
         <a href="Customerlist.aspx">Customer List</a>
         <hr>
-        <a href="Viewprescriptions.aspx">Prescription Orders</a>
+       <a href="Viewprescriptions.aspx">
+    Prescription Orders
+    <asp:Literal ID="litPendingPrescriptions" runat="server" />
+</a>
         <a href="Viewmessage.aspx">View Messages</a>
         <hr>
         <a href="Dailyreport.aspx">Daily Report</a>
@@ -148,9 +154,7 @@
                     <span>Admin</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+                    <li><a class="dropdown-item text-danger" href="/loginuser.aspx">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -159,7 +163,7 @@
             </asp:ContentPlaceHolder>
 
         <div class="text-center mt-4">
-            <img src="your-image-url" class="img-fluid" alt="Medical Dashboard">
+            <img src="/images/shivdatta2.jpg" class="img-fluid" alt="Medical Dashboard">
         </div>
 
         <div class="footer">Copyright © 2025. All rights reserved.</div>

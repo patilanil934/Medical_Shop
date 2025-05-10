@@ -7,6 +7,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.tool.xml;
+
 
 namespace MedicalShop
 {
@@ -65,7 +71,7 @@ namespace MedicalShop
 
                 if (ddlStatus != null)
                 {
-                    ListItem selectedItem = ddlStatus.Items.FindByValue(status);
+                    System.Web.UI.WebControls.ListItem selectedItem = ddlStatus.Items.FindByValue(status);
                     if (selectedItem != null)
                     {
                         selectedItem.Selected = true;
@@ -158,7 +164,5 @@ namespace MedicalShop
                 }
             }
         }
-
-
     }
 }

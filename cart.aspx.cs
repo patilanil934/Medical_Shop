@@ -31,13 +31,24 @@ namespace MedicalShop
                 rptCart.DataSource = cart;
                 rptCart.DataBind();
 
-                // Calculate total amount
                 decimal totalAmount = cart.AsEnumerable().Sum(row => Convert.ToDecimal(row["total"]));
                 lblTotalAmount.Text = totalAmount.ToString("0.00");
+
+                // ✅ Generate QR Code
+                string upiId = "7798349398@ybl"; // Replace with your UPI ID
+                string customerName = "MedicalShop Customer"; // Replace with actual user name if available
+                string upiUrl = $"upi://pay?pa={upiId}&pn={HttpUtility.UrlEncode(customerName)}&am={totalAmount}&cu=INR";
+                string qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?data=" + HttpUtility.UrlEncode(upiUrl) + "&size=250x250";
+
+                imgQRCode.ImageUrl = qrCodeUrl;
+                imgQRCode.Visible = true;
+                lblQRNote.Visible = true;
             }
             else
             {
                 lblTotalAmount.Text = "0.00";
+                imgQRCode.Visible = false;
+                lblQRNote.Visible = false;
             }
         }
 
@@ -141,7 +152,14 @@ namespace MedicalShop
                 transaction.Commit();
                 Session["cart"] = null;
 
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", "Swal.fire({ title: 'Success!', text: 'Your order has been placed successfully.', icon: 'success' }).then(() => { window.location='index.aspx'; });", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "redirect", $@"
+    Swal.fire({{
+        title: 'Success!',
+        text: 'Your order has been placed successfully.',
+        icon: 'success'
+    }}).then(() => {{
+        window.location = 'Invoice.aspx?orderid={orderId}';
+    }});", true);
             }
             catch (Exception ex)
             {

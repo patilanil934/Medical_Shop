@@ -47,5 +47,58 @@
     </div>
 </div>
 
+    <script>
+    document.getElementById('<%= btnResetPassword.ClientID %>').addEventListener("click", function (e) {
+        let isValid = true;
+
+        // Validate Email (basic format check)
+        const email = document.getElementById('<%= txtEmail.ClientID %>').value.trim();
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (email === "" || !emailPattern.test(email)) {
+            alert("Please enter a valid email address.");
+            isValid = false;
+        }
+
+        // Validate Security Question
+        const securityQuestion = document.getElementById('<%= ddlSecurityQuestion.ClientID %>').value;
+        if (securityQuestion === "") {
+            alert("Please select a security question.");
+            isValid = false;
+        }
+
+        // Validate Security Answer
+        const securityAnswer = document.getElementById('<%= txtSecurityAnswer.ClientID %>').value.trim();
+        if (securityAnswer === "") {
+            alert("Security answer is required.");
+            isValid = false;
+        }
+
+        // Validate New Password (minimum length check)
+        const newPassword = document.getElementById('<%= txtNewPassword.ClientID %>').value.trim();
+        if (newPassword === "") {
+            alert("New password is required.");
+            isValid = false;
+        } else if (newPassword.length < 6) {
+            alert("New password must be at least 6 characters.");
+            isValid = false;
+        }
+
+        // Validate Confirm Password (check if it matches New Password)
+        const confirmPassword = document.getElementById('<%= txtConfirmPassword.ClientID %>').value.trim();
+        if (confirmPassword === "") {
+            alert("Please confirm your new password.");
+            isValid = false;
+        } else if (newPassword !== confirmPassword) {
+            alert("Passwords do not match.");
+            isValid = false;
+        }
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+            e.preventDefault(); // Prevents server-side click if validation fails
+        }
+    });
+    </script>
+
 
 </asp:Content>

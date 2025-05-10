@@ -201,6 +201,8 @@ namespace MedicalShop.Adminpanel
             // Close the modal and refresh the grid
             ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModal", "$('#prescriptionModal').modal('hide');", true);
             BindGrid();
+
+            Response.Redirect(Request.RawUrl);
         }
 
     }

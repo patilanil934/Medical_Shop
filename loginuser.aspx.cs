@@ -32,6 +32,17 @@ namespace MedicalShop
 
             try
             {
+                // Check for Admin credentials first
+                if (email == "admin@gmail.com" && password == "123456")
+                {
+                    // If credentials match, redirect to the admin dashboard
+                    Session["UserID"] = "Admin"; // Or some unique identifier for Admin
+                    Session["UserName"] = "Admin";
+                    Response.Redirect("Adminpanel/Dashboard.aspx");
+                    return;
+                }
+
+                // Proceed with regular user login if not admin
                 string connectionString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
 
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -50,7 +61,7 @@ namespace MedicalShop
                         {
                             Session["UserID"] = reader["id"].ToString();
                             Session["UserName"] = reader["name"].ToString();
-                            Response.Redirect("index.aspx");
+                            Response.Redirect("index.aspx"); // Redirect to regular user homepage
                         }
                         else
                         {
@@ -64,6 +75,7 @@ namespace MedicalShop
                 Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
             }
         }
+
 
     }
 }

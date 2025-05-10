@@ -76,4 +76,81 @@
 
         <asp:Button ID="btnRegister" runat="server" CssClass="btn btn-primary" Text="Join Now" Onclick="btnRegister_Click" />
     </div>
+
+    <script>
+    document.getElementById('<%= btnRegister.ClientID %>').addEventListener("click", function (e) {
+        let isValid = true;
+
+        // Validate First Name
+        const firstName = document.getElementById('<%= txtFirstName.ClientID %>').value.trim();
+        if (firstName.length < 3) {
+            alert("First name must be at least 3 characters.");
+            isValid = false;
+        }
+
+        // Validate Email for @gmail.com
+        const email = document.getElementById('<%= txtEmail.ClientID %>').value.trim();
+        const emailPattern = /^[a-zA-Z0-9._-]+@gmail\.com$/;
+        if (!emailPattern.test(email)) {
+            alert("Please enter a valid Gmail address.");
+            isValid = false;
+        }
+
+        // Validate Phone Number (10 digits)
+        const phoneNumber = document.getElementById('<%= txtPhoneNumber.ClientID %>').value.trim();
+        if (!/^\d{10}$/.test(phoneNumber)) {
+            alert("Phone number must be exactly 10 digits.");
+            isValid = false;
+        }
+
+        // Validate Password (minimum 6 characters)
+        const password = document.getElementById('<%= txtPassword.ClientID %>').value.trim();
+        if (password.length < 6) {
+            alert("Password must be at least 6 characters.");
+            isValid = false;
+        }
+
+        // Validate Address
+        const address = document.getElementById('<%= txtAddress.ClientID %>').value.trim();
+        if (address === "") {
+            alert("Address is required.");
+            isValid = false;
+        }
+
+        // Validate City
+        const city = document.getElementById('<%= txtCity.ClientID %>').value.trim();
+        if (city === "") {
+            alert("City is required.");
+            isValid = false;
+        }
+
+        // Validate Pin Code (6 digits)
+        const pinCode = document.getElementById('<%= txtPinCode.ClientID %>').value.trim();
+        if (!/^\d{6}$/.test(pinCode)) {
+            alert("Pin code must be exactly 6 digits.");
+            isValid = false;
+        }
+
+        // Validate Security Question
+        const securityQuestion = document.getElementById('<%= ddlSecurityQuestion.ClientID %>').value;
+        if (securityQuestion === "") {
+            alert("Please select a security question.");
+            isValid = false;
+        }
+
+        // Validate Security Answer
+        const securityAnswer = document.getElementById('<%= txtSecurityAnswer.ClientID %>').value.trim();
+        if (securityAnswer === "") {
+            alert("Security answer is required.");
+            isValid = false;
+        }
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+            e.preventDefault(); // Prevents server-side click if validation fails
+        }
+    });
+    </script>
+
+
 </asp:Content>

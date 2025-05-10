@@ -52,24 +52,24 @@
         <div class="container">
             <h2 class="text-center">Place Your Order</h2>
             
-            <form class="mt-4">
+            
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="txtName" class="form-label">Your Name</label>
-                            <asp:TextBox ID="txtName" runat="server" CssClass="form-control" placeholder="Enter your name" required></asp:TextBox>
+                            <asp:TextBox ID="txtName" runat="server" CssClass="form-control" placeholder="Enter your name"></asp:TextBox>
                         </div>
                         <div class="mb-3">
                             <label for="txtPhone" class="form-label">Phone Number</label>
-                            <asp:TextBox ID="txtPhone" runat="server" CssClass="form-control" placeholder="Enter your phone number" required></asp:TextBox>
+                            <asp:TextBox ID="txtPhone" runat="server" CssClass="form-control" placeholder="Enter your phone number" ></asp:TextBox>
                         </div>
                         <div class="mb-3">
                             <label for="txtDoctor" class="form-label">Doctor's Name</label>
-                            <asp:TextBox ID="txtDoctor" runat="server" CssClass="form-control" placeholder="Enter the doctor's name" required></asp:TextBox>
+                            <asp:TextBox ID="txtDoctor" runat="server" CssClass="form-control" placeholder="Enter the doctor's name" ></asp:TextBox>
                         </div>
                         <div class="mb-3">
                             <label for="fuPrescription" class="form-label">Upload Prescription</label>
-                            <asp:FileUpload ID="fuPrescription" CssClass="form-control custom-file-input" runat="server" required />
+                            <asp:FileUpload ID="fuPrescription" CssClass="form-control custom-file-input" runat="server"  />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -100,7 +100,7 @@
                 <div class="text-center">
                     <asp:Button ID="btnSubmitOrder" CssClass="btn btn-primary" runat="server" Text="Submit Order" OnClick="btnSubmitOrder_Click" />
                 </div>
-            </form>
+            
         </div>
     </section>
     <script>
@@ -115,4 +115,52 @@
         });
     });
     </script>
+
+    <script>
+        document.getElementById('<%= btnSubmitOrder.ClientID %>').addEventListener("click", function (e) {
+            let isValid = true;
+
+            const name = document.getElementById('<%= txtName.ClientID %>').value.trim();
+        const phone = document.getElementById('<%= txtPhone.ClientID %>').value.trim();
+        const doctor = document.getElementById('<%= txtDoctor.ClientID %>').value.trim();
+        const fileUpload = document.getElementById('<%= fuPrescription.ClientID %>').value;
+        const reminderYes = document.querySelector("input[id*='rblReminder']:checked").value === "Yes";
+        const reminderDays = document.getElementById('<%= txtReminderDays.ClientID %>').value.trim();
+        const address = document.getElementById('<%= txtAddress.ClientID %>').value.trim();
+
+        if (name.length < 3) {
+            alert("Name must be at least 3 characters.");
+            isValid = false;
+        } else if (!/^\d{10}$/.test(phone)) {
+            alert("Phone number must be exactly 10 digits.");
+            isValid = false;
+        } else if (doctor === "") {
+            alert("Doctor's name is required.");
+            isValid = false;
+        } else if (fileUpload === "") {
+            alert("Please upload a prescription.");
+            isValid = false;
+        } else if (reminderYes && (!/^\d+$/.test(reminderDays) || parseInt(reminderDays) <= 0)) {
+            alert("Enter valid reminder days (positive number).");
+            isValid = false;
+        } else if (address === "") {
+            alert("Delivery address is required.");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            e.preventDefault(); // Prevents server-side click if validation fails
+        }
+    });
+
+        // Show/hide reminderDays textbox based on radio selection
+        document.querySelectorAll("input[id*='rblReminder']").forEach(function (radio) {
+            radio.addEventListener("change", function () {
+                const reminderDiv = document.getElementById("reminderDaysDiv");
+                reminderDiv.style.display = this.value === "Yes" ? "block" : "none";
+            });
+        });
+    </script>
+
+
 </asp:Content>

@@ -91,11 +91,39 @@
                         <label for="txtMessage" class="form-label">Message</label>
                         <asp:TextBox ID="txtMessage" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="5" placeholder="Your message" />
                     </div>
-                    <asp:Button ID="btnSubmit" runat="server" Text="Send Message" CssClass="btn btn-primary" OnClick="btnSubmit_Click"/>
+                   <asp:Button ID="btnSubmit" runat="server" Text="Send Message"
+    CssClass="btn btn-primary" OnClick="btnSubmit_Click"
+    OnClientClick="return validateContactForm();" />
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+    <script>
+    function validateContactForm() {
+        const name = document.getElementById('<%= txtName.ClientID %>').value.trim();
+        const email = document.getElementById('<%= txtEmail.ClientID %>').value.trim();
+        const message = document.getElementById('<%= txtMessage.ClientID %>').value.trim();
+
+        if (name === "") {
+            alert("Please enter your name.");
+            return false;
+        }
+
+        if (email === "" || !email.endsWith("@gmail.com")) {
+            alert("Please enter a valid Gmail address (e.g., user@gmail.com).");
+            return false;
+        }
+
+        if (message === "") {
+            alert("Please enter your message.");
+            return false;
+        }
+
+        return true; // Allow form to submit
+    }
+    </script>
+
 
 </asp:Content>

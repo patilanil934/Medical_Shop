@@ -46,7 +46,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <asp:Button ID="btnLogin"  runat="server" CssClass="btn btn-login" Text="Login" Onclick="btnLogin_Click"/>
+                    <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-login"
+    Text="Login" OnClientClick="return validateLoginForm();" OnClick="btnLogin_Click" />
                 </div>
 
                 <div class="text-center">
@@ -58,5 +59,25 @@
                 </div>
             </div>
         </div>
+
+    <script>
+    function validateLoginForm() {
+        var email = document.getElementById("<%= txtEmail.ClientID %>").value.trim();
+        var password = document.getElementById("<%= txtPassword.ClientID %>").value.trim();
+
+        if (email === "" || password === "") {
+            alert("Both Email and Password are required.");
+            return false;
+        }
+
+        if (!email.endsWith("@gmail.com")) {
+            alert("Email must be a Gmail address (e.g., example@gmail.com).");
+            return false;
+        }
+
+        return true; // allow form submission
+    }
+    </script>
+
     
 </asp:Content>

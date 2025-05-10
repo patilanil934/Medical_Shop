@@ -65,14 +65,18 @@
                 </tfoot>
             </table>
         </div>
+
+        <div class="text-center mt-4">
+    <asp:Image ID="imgQRCode" runat="server" Width="250px" Height="250px" Visible="false" />
+    <br />
+    <asp:Label ID="lblQRNote" runat="server" Text="Scan to pay using UPI" CssClass="fw-bold" Visible="false"></asp:Label>
+</div>
+
         <div class="checkout-btn text-center">
             <asp:Button ID="btnCheckout" runat="server" CssClass="btn btn-primary" 
                 Text="Proceed to Checkout" OnClick="ProceedToCheckout"/>
         </div>
     </div>
 </section>
-
-
-
 
 </asp:Content>

@@ -16,6 +16,7 @@ namespace MedicalShop.Adminpanel
             if (!IsPostBack)
             {
                 LoadDashboardCounts();
+                LoadSalesDataForChart();
             }
         }
 
@@ -48,5 +49,40 @@ namespace MedicalShop.Adminpanel
                 return (int)cmd.ExecuteScalar();
             }
         }
+
+        private void LoadSalesDataForChart()
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
+            List<object> salesData = new List<object>();
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                string query = @"SELECT 
+                            FORMAT(order_date, 'MMM') AS [Month], 
+                            SUM(total_amount) AS Total 
+                         FROM orders 
+                         WHERE status = 'Delivered'
+                         GROUP BY FORMAT(order_date, 'MMM'), MONTH(order_date)
+                         ORDER BY MONTH(order_date)";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        salesData.Add(new
+                        {
+                            month = reader["Month"].ToString(),
+                            total = Convert.ToDecimal(reader["Total"])
+                        });
+                    }
+                }
+            }
+
+            // Serialize to JSON and assign to hidden field
+            hfSalesData.Value = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(salesData);
+        }
+
     }
 }
