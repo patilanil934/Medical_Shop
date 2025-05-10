@@ -161,8 +161,8 @@ namespace MedicalShop.Adminpanel
             {
                 string smtpServer = "smtp.gmail.com";
                 int smtpPort = 587;
-                string smtpUser = "patilanil9398@gmail.com"; // Replace with your email
-                string smtpPass = "vqzk roio gema iatd";    // Replace with your app password
+                string smtpUser = ""; // Replace with your email
+                string smtpPass = "";    // Replace with your app password
 
                 // Create the email message
                 MailMessage mail = new MailMessage();

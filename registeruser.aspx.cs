@@ -81,8 +81,8 @@ namespace MedicalShop
                 // SMTP Configuration
                 string smtpServer = "smtp.gmail.com"; // Example for Gmail
                 int smtpPort = 587;
-                string smtpUser = "patilanil9398@gmail.com"; // your email here
-                string smtpPass = "vqzk roio gema iatd";    // app password if using Gmail
+                string smtpUser = ""; // your email here
+                string smtpPass = "";    // app password if using Gmail
 
                 MailMessage mail = new MailMessage();
                 mail.From = new MailAddress(smtpUser, "Medical Shop");
