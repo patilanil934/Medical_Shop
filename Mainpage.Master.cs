@@ -16,17 +16,55 @@ namespace MedicalShop
         {
             if (!IsPostBack)
             {
-                // Check if logout is requested via URL query
+                LoadContactInfo();
+
                 if (Request.QueryString["logout"] == "true")
                 {
                     LogoutUser();
                 }
-            }
-            if (!IsPostBack && Session["UserID"] != null)
-            {
-                LoadReminders();
+
+                if (Session["UserID"] != null)
+                {
+                    LoadReminders();
+                }
             }
         }
+
+        private void LoadContactInfo()
+        {
+            try
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    string query = "SELECT TOP 1 * FROM contactinfo";
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                // Set text
+                                litAddress.Text = dr["address"]?.ToString();
+                                litEmail.Text = dr["email"]?.ToString();
+                                litPhone.Text = dr["phone"]?.ToString();
+
+                                // Set hrefs dynamically
+                                emailLink.HRef = "mailto:" + dr["email"]?.ToString();
+                                phoneLink.HRef = "tel:" + dr["phone"]?.ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Optional: log the error to the console or file
+                System.Diagnostics.Debug.WriteLine("Contact Info Error: " + ex.Message);
+            }
+        }
+
 
         private void LoadReminders()
         {

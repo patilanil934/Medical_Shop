@@ -8,7 +8,9 @@
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     max-width: 500px;
-    margin: 80px auto 50px; /* Pushes it down from navbar and prevents footer overlap */
+    margin: 80px auto 50px;
+    
+    border: 1.5px solid #343a40; /* Added normal dark border */
 }
 
 /* Page Background */
@@ -41,9 +43,9 @@ body {
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-   <div class="container">
+ <div class="container">
     <div class="profile-container">
-        <h4 class="text-center text-dark"><b>My Profile</b></h4>
+        <h4 class="text-center"><b>My Profile</b></h4>
 
         <div class="mb-3">
             <label class="form-label"><b>Name</b></label>
@@ -70,7 +72,7 @@ body {
             <asp:TextBox ID="txtAddress" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
 
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-md-6">
                 <label class="form-label"><b>City</b></label>
                 <asp:TextBox ID="txtCity" runat="server" CssClass="form-control"></asp:TextBox>
@@ -91,14 +93,13 @@ body {
             </asp:DropDownList>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-4">
             <label class="form-label"><b>Security Answer</b></label>
             <asp:TextBox ID="txtSecurityAnswer" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
 
         <div class="d-flex justify-content-between">
-           <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-success" Text="Update" OnClick="btnUpdate_Click" />
-
+            <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-success" Text="Update" OnClick="btnUpdate_Click" />
             <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-secondary" Text="Cancel" OnClick="btnCancel_Click" />
         </div>
     </div>

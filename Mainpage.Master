@@ -40,94 +40,143 @@
     <form id="form1" runat="server">
         <div>
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:20px">
-                <img src="images/medicallogo.png" class="medicallogo" alt="Slide 3">
-                <div class="container">
-                    
-                    <a class="navbar-brand" href="index.aspx">Medical Shop</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto gap-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="index.aspx">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contactus.aspx">Contact Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="categories.aspx">Categories</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="ordermedicine.aspx">Order Medicine</a>
-                            </li>
-                           
+            <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.aspx" style="gap:10px;">
+            <img src="images/medicallogo.png" alt="Medical Shop Logo" style="height:40px; width:auto;" />
+            <span class="fs-4 fw-semibold">Medical Shop</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center gap-3">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.aspx">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contactus.aspx">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="categories.aspx">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ordermedicine.aspx">Order Medicine</a>
+                </li>
 
-                            <% if (Session["UserID"] == null) { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="loginuser.aspx">Login</a>
-                                </li>
-                            <% } else { %>
-                                <!-- Dropdown Menu for Logged-in User -->
-                               <li class="nav-item">
-                                 <a class="nav-link" href="cart.aspx">Cart</a>
-                             </li>
+                <% if (Session["UserID"] == null) { %>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-warning px-3" href="loginuser.aspx">Login</a>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.aspx">
+                            <i class="bi bi-cart-fill fs-5"></i> Cart
+                        </a>
+                    </li>
 
-                                <li class="nav-item dropdown">
-                                <a class="nav-link position-relative" href="#" id="reminderDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-bell-fill"></i>
-                                    <asp:Literal ID="ltlReminderCount" runat="server"></asp:Literal>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="reminderDropdown">
-                                    <asp:Repeater ID="rptReminders" runat="server">
-                                                                                <ItemTemplate>
-                                            <div class="p-2 border-bottom">
-                                                <strong><%# Eval("name") %></strong><br />
-                                                <small>Dr. <%# Eval("doctor_name") %></small><br />
-                                                <small><%# Eval("description") %></small><br />
-                                                <div class="mt-1">
-                                                    <asp:Button ID="btnReorder" runat="server" CommandArgument='<%# Eval("id") %>'
-                                                        CssClass="btn btn-success btn-sm" Text="Reorder" OnClick="btnReorder_Click" />
-                                                    <asp:Button ID="btnNotRequired" runat="server" CommandArgument='<%# Eval("id") %>'
-                                                        CssClass="btn btn-danger btn-sm" Text="Not Required" OnClick="btnNotRequired_Click" />
-                                                </div>
-                                            </div>
-                                        </ItemTemplate>
-                                        <FooterTemplate>
-                                            <li class="dropdown-divider"></li>
-                                            <li class="text-center text-muted small p-2">End of Reminders</li>
-                                        </FooterTemplate>
-                                    </asp:Repeater>
-                                </ul>
-                            </li>
-
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-person-circle"></i> <%= Session["UserName"] %>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item" href="userprofile.aspx">Profile</a></li>
-                                        <li><a class="dropdown-item" href="myorders.aspx">My Orders</a></li>
-                                         <li><a class="dropdown-item" href="prescriptionorders.aspx">Prescription Orders</a></li>
-                                        <li>
-                                            <asp:Button ID="btnLogout" runat="server" CssClass="dropdown-item" Text="Logout" OnClick="btnLogout_Click" />
-                                        </li>
-                                    </ul>
-                                </li>
-                            <% } %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link position-relative" href="#" id="reminderDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Reorder Reminders">
+                            <i class="bi bi-bell-fill fs-5 text-warning"></i>
+                            <asp:Literal ID="ltlReminderCount" runat="server" />
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="reminderDropdown" style="min-width: 280px;">
+                            <asp:Repeater ID="rptReminders" runat="server">
+                                <ItemTemplate>
+                                    <div class="border-bottom pb-2 mb-2">
+                                        <strong><%# Eval("name") %></strong><br />
+                                        <small class="text-muted">Dr. <%# Eval("doctor_name") %></small><br />
+                                        <small class="text-muted"><%# Eval("description") %></small><br />
+                                        <div class="mt-2 d-flex gap-2">
+                                            <asp:Button ID="btnReorder" runat="server" CommandArgument='<%# Eval("id") %>'
+                                                CssClass="btn btn-sm btn-success flex-grow-1" Text="Reorder" OnClick="btnReorder_Click" />
+                                            <asp:Button ID="btnNotRequired" runat="server" CommandArgument='<%# Eval("id") %>'
+                                                CssClass="btn btn-sm btn-danger flex-grow-1" Text="Not Required" OnClick="btnNotRequired_Click" />
+                                        </div>
+                                    </div>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li class="text-center text-muted small">End of Reminders</li>
+                                </FooterTemplate>
+                            </asp:Repeater>
                         </ul>
-                    </div>
-                </div>
-            </nav>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-5"></i> <span><%= Session["UserName"] %></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="userprofile.aspx">Profile</a></li>
+                            <li><a class="dropdown-item" href="myorders.aspx">My Orders</a></li>
+                            <li><a class="dropdown-item" href="prescriptionorders.aspx">Prescription Orders</a></li>
+                            <li>
+                                <asp:Button ID="btnLogout" runat="server" CssClass="dropdown-item" Text="Logout" OnClick="btnLogout_Click" />
+                            </li>
+                        </ul>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
 
-            <footer>
-                <div class="container">
-                    <p>&copy; 2025 Medical Shop. All Rights Reserved.</p>
-                </div>
-            </footer>
+         <footer class="bg-dark text-light pt-5 pb-4 border-top border-secondary">
+    <div class="container">
+        <div class="row text-center text-md-start gy-4">
+
+            <!-- Branding -->
+            <div class="col-md-4">
+                <h5 class="text-warning fw-bold mb-3">Medical Shop</h5>
+                <p class="mb-0 fst-italic">Your trusted health partner</p>
+            </div>
+
+            <!-- Copyright -->
+            <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+                <p class="mb-1 small">&copy; 2025 Medical Shop. All Rights Reserved.</p>
+                <p class="mb-0 small">
+                    Designed & Developed by
+                    <a href="#" class="text-warning text-decoration-none fw-semibold">YourCompany</a>
+                </p>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-4">
+                <p class="d-flex align-items-center mb-2">
+                    <i class="bi bi-geo-alt-fill text-warning me-2 fs-5"></i>
+                    <span><strong>Address:</strong> <asp:Literal ID="litAddress" runat="server" /></span>
+                </p>
+                <p class="d-flex align-items-center mb-2">
+                    <i class="bi bi-envelope-fill text-warning me-2 fs-5"></i>
+                    <span>
+                        <strong>Email:</strong>
+                        <a id="emailLink" runat="server" class="text-light text-decoration-none">
+                            <asp:Literal ID="litEmail" runat="server" />
+                        </a>
+                    </span>
+                </p>
+                <p class="d-flex align-items-center mb-0">
+                    <i class="bi bi-telephone-fill text-warning me-2 fs-5"></i>
+                    <span>
+                        <strong>Phone:</strong>
+                        <a id="phoneLink" runat="server" class="text-light text-decoration-none">
+                            <asp:Literal ID="litPhone" runat="server" />
+                        </a>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
 
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
